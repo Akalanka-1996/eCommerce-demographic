@@ -1,29 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
 import { FaSignInAlt } from "react-icons/fa";
-
+import axios from "axios";
+import BASE_URL from "../config/config";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
+    user_type: "",
   });
 
-  const { email, password } = formData;
-
-  // useEffect(() => {
-  //   if (isError) {
-  //     toast.error(message)
-  //     alert("Invalid username or password!")
-  //   }
-
-  //   if (isSuccess || user) {
-  //     navigate('/')
-  //   }
-
-  //   dispatch(reset())
-  // }, [user, isError, isSuccess, message, navigate, dispatch])
+  const { username, password, user_type } = formData;
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -32,12 +21,22 @@ const Login = () => {
     }));
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
-    const userData = {email, password}
-
-    // dispatch(login(userData))
+    const userData = { username, password };
+    try {
+      const response = await axios.post(`${BASE_URL}/login`, userData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const { token } = response.data;
+      localStorage.setItem('token', token)
+      console.log("Response from server:", response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -52,12 +51,12 @@ const Login = () => {
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <input
-              type="email"
+              type="text"
               className="form-control"
-              id="email"
-              name="email"
-              value={email}
-              placeholder="Enter your email"
+              id="username"
+              name="username"
+              value={username}
+              placeholder="Enter your username"
               onChange={onChange}
             />
           </div>
@@ -72,6 +71,19 @@ const Login = () => {
               onChange={onChange}
             />
           </div>
+          <div className="form-group">
+            <select
+              className="form-control"
+              id="user_type"
+              name="user_type"
+              value={user_type}
+              onChange={onChange}
+            >
+              <option value="">Select User Type</option>
+              <option value="vendor">Vendor</option>
+              <option value="designer">Designer</option>
+            </select>
+          </div>
 
           <div className="form-group">
             <button type="submit" className="btn-login btn-block">
@@ -80,8 +92,6 @@ const Login = () => {
           </div>
         </form>
       </secton>
-
-      {/* <Footer /> */}
     </>
   );
 };
