@@ -33,6 +33,7 @@ const Register = () => {
       });
       const { token } = response.data;
       localStorage.setItem('token', token)
+      window.location.href = '/dashboard';
       console.log("Response from server:", response.data);
     } catch (error) {
       console.error("Error:", error);
