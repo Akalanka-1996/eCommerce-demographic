@@ -5,13 +5,14 @@ import { FaSignInAlt } from "react-icons/fa";
 import axios from "axios";
 import BASE_URL from "../config/config";
 
-const Login = () => {
+const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
+    user_type: "",
   });
 
-  const { username, password } = formData;
+  const { username, password, user_type } = formData;
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -23,9 +24,9 @@ const Login = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const userData = { username, password };
+    const userData = { username, password, user_type };
     try {
-      const response = await axios.post(`${BASE_URL}/login`, userData, {
+      const response = await axios.post(`${BASE_URL}/register`, userData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -42,7 +43,7 @@ const Login = () => {
     <>
       <section className="heading">
         <h1>
-          <FaSignInAlt /> Login
+          <FaSignInAlt /> Register
         </h1>
         <p>Login and Request Documents!</p>
       </section>
@@ -70,7 +71,7 @@ const Login = () => {
               onChange={onChange}
             />
           </div>
-          {/* <div className="form-group">
+          <div className="form-group">
             <select
               className="form-control"
               id="user_type"
@@ -82,7 +83,7 @@ const Login = () => {
               <option value="vendor">Vendor</option>
               <option value="designer">Designer</option>
             </select>
-          </div> */}
+          </div>
 
           <div className="form-group">
             <button type="submit" className="btn-login btn-block">
@@ -95,4 +96,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
