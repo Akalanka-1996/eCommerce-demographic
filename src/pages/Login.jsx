@@ -30,8 +30,8 @@ const Login = () => {
         },
       });
       const { token } = response.data;
-      localStorage.setItem('token', token)
-      window.location.href = '/dashboard';
+      localStorage.setItem("token", token);
+      window.location.href = "/dashboard";
       console.log("Response from server:", response.data);
     } catch (error) {
       console.error("Error:", error);
@@ -70,19 +70,6 @@ const Login = () => {
               onChange={onChange}
             />
           </div>
-          {/* <div className="form-group">
-            <select
-              className="form-control"
-              id="user_type"
-              name="user_type"
-              value={user_type}
-              onChange={onChange}
-            >
-              <option value="">Select User Type</option>
-              <option value="vendor">Vendor</option>
-              <option value="designer">Designer</option>
-            </select>
-          </div> */}
 
           <div className="form-group">
             <button type="submit" className="btn-login btn-block">

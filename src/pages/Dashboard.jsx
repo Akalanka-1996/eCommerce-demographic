@@ -52,6 +52,28 @@ const Dashboard = () => {
     }
   };
 
+  const publishImage = async () => {
+    try {
+        const publishData = {
+            image_url: pic,
+            tags: ["gender_male",
+            "isMarried_True",
+            "race_Muslim"]
+        }
+        const token = localStorage.getItem("token");
+        console.log('publish data', publishData)
+        const response = await axios.post(`${BASE_URL}/upload`, publishData, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          console.log("response", response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     console.log("pic", pic);
   }, [pic]);
@@ -69,6 +91,9 @@ const Dashboard = () => {
           <br></br>
           <br></br>
           <button onClick={uploadToCloudinary}>Upload</button>
+          <br></br>
+          <br></br>
+          <button onClick={publishImage}>Publish</button>
         </Form.Group>
       </section>
     </>
