@@ -32,8 +32,8 @@ const Register = () => {
         },
       });
       const { token } = response.data;
-      localStorage.setItem('token', token)
-      window.location.href = '/dashboard';
+      localStorage.setItem("token", token);
+      window.location.href = "/dashboard";
       console.log("Response from server:", response.data);
     } catch (error) {
       console.error("Error:", error);
@@ -42,11 +42,13 @@ const Register = () => {
 
   return (
     <>
-      <section className="heading">
-        <h1>
+      <section className="heading"  style={{ marginTop: "20px" }}>
+        <h1 style={{ fontSize: "32px", marginBottom: "10px" }}>
           <FaSignInAlt /> Register
         </h1>
-        <p>Login and Request Documents!</p>
+        <p style={{ fontSize: "18px", color: "#666", marginBottom: "20px" }}>
+          Join as an admin to manage your ecommerce site. Register now!
+        </p>
       </section>
       <secton className="form">
         <form onSubmit={onSubmit}>
@@ -61,6 +63,7 @@ const Register = () => {
               onChange={onChange}
             />
           </div>
+          <br></br>
           <div className="form-group">
             <input
               type="password"
@@ -72,6 +75,7 @@ const Register = () => {
               onChange={onChange}
             />
           </div>
+          <br></br>
           <div className="form-group">
             <select
               className="form-control"
@@ -85,10 +89,24 @@ const Register = () => {
               <option value="designer">Designer</option>
             </select>
           </div>
-
+          <br></br>
           <div className="form-group">
-            <button type="submit" className="btn-login btn-block">
-              Submit
+            <button
+              type="submit"
+              className="btn-login btn-block"
+              style={{
+                backgroundColor: "#28a745",
+                color: "white",
+                padding: "10px 20px",
+                borderRadius: "5px",
+                border: "none",
+                cursor: "pointer",
+                fontSize: "16px",
+                fontWeight: "bold",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              Register
             </button>
           </div>
         </form>

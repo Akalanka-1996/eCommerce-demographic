@@ -5,7 +5,7 @@ import { FaSignInAlt } from "react-icons/fa";
 import axios from "axios";
 import BASE_URL from "../config/config";
 import Header from "../components/Header";
-import 'react-toastify/dist/ReactToastify.css'; 
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -31,9 +31,9 @@ const Login = () => {
           "Content-Type": "application/json",
         },
       });
-      console.log('abcd')
-      console.log('response', response.data)
-      const { token, user} = response.data;
+      console.log("abcd");
+      console.log("response", response.data);
+      const { token, user } = response.data;
       localStorage.setItem("token", token);
       localStorage.setItem("user_id", user.user_id);
       localStorage.setItem("username", user.username);
@@ -49,12 +49,12 @@ const Login = () => {
 
   return (
     <>
-      <Header />
-      <section className="heading">
-        <h1>
-          <FaSignInAlt /> Login
-        </h1>
-        <p>Login and Request Documents!</p>
+      {/* <Header /> */}
+      <section className="heading"  style={{ marginTop: "20px" }}>
+        <h1 style={{ fontSize: "32px", marginBottom: "10px" }}>Admin Login</h1>
+        <p style={{ fontSize: "18px", color: "#666", marginBottom: "20px" }}>
+          Welcome back, admin! Please log in to manage your ecommerce site.
+        </p>
       </section>
       <secton className="form">
         <form onSubmit={onSubmit}>
@@ -69,6 +69,7 @@ const Login = () => {
               onChange={onChange}
             />
           </div>
+          <br></br>
           <div className="form-group">
             <input
               type="password"
@@ -80,9 +81,21 @@ const Login = () => {
               onChange={onChange}
             />
           </div>
-
+          <br></br>
           <div className="form-group">
-            <button type="submit" className="btn-login btn-block">
+            <button
+              type="submit"
+              className="btn-login btn-block"
+              style={{
+                backgroundColor: "#007bff",
+                color: "white",
+                padding: "10px 20px",
+                borderRadius: "5px",
+                border: "none",
+                cursor: "pointer",
+                fontSize: "16px",
+              }}
+            >
               Login
             </button>
           </div>
