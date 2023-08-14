@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import BASE_URL from "../config/config";
 import Form from "react-bootstrap/Form";
+import Spinner from "../components/spinner/spinner";
 
 const Dashboard = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [probabilityArray, setProbabilityArray] = useState([]);
   const [pic, setPic] = useState();
   const [selectedImageUrl, setSelectedImageUrl] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const username = localStorage.getItem("username");
 
@@ -48,6 +50,7 @@ const Dashboard = () => {
     data.append("cloud_name", "dinmf92zr");
 
     try {
+      setLoading(true)
       const response = await fetch(
         "https://api.cloudinary.com/v1_1/dinmf92zr/image/upload",
         {
@@ -58,6 +61,8 @@ const Dashboard = () => {
 
       const cloudinaryData = await response.json();
       setPic(cloudinaryData.url.toString());
+      setLoading(false)
+
     } catch (error) {
       console.error(error);
     }
@@ -161,38 +166,45 @@ const Dashboard = () => {
           )}
           <br />
           <br />
-          {probabilityArray.length > 0 && (
-            <div>
-              <button
-                onClick={uploadToCloudinary}
-                style={{
-                  padding: "10px 20px",
-                  backgroundColor: "#28a745",
-                  color: "white",
-                  borderRadius: "5px",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-              >
-                Upload
-              </button>
-              <br />
-              <br />
-              <button
-                onClick={publishImage}
-                style={{
-                  padding: "10px 20px",
-                  backgroundColor: "#dc3545",
-                  color: "white",
-                  borderRadius: "5px",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-              >
-                Publish
-              </button>
-            </div>
-          )}
+          <div>
+            { loading? ( <div style={{ textAlign: 'center' }}>
+          <Spinner /> {/* Use the Spinner component */}
+          <p>Loading...</p>
+        </div>) : (<div>
+            {probabilityArray.length > 0 && (
+              <div>
+                <button
+                  onClick={uploadToCloudinary}
+                  style={{
+                    padding: "10px 20px",
+                    backgroundColor: "#28a745",
+                    color: "white",
+                    borderRadius: "5px",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  Upload to Cloud
+                </button>
+                <br />
+                <br />
+                <button
+                  onClick={publishImage}
+                  style={{
+                    padding: "10px 20px",
+                    backgroundColor: "#dc3545",
+                    color: "white",
+                    borderRadius: "5px",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  Publish to Website
+                </button>
+              </div>
+            )}
+            </div>)}
+          </div>
         </Form.Group>
       </section>
     </>
