@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { FaSignInAlt } from "react-icons/fa";
 import axios from "axios";
 import BASE_URL from "../config/config";
+import Header from "../components/Header";
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -29,8 +31,15 @@ const Login = () => {
           "Content-Type": "application/json",
         },
       });
-      const { token } = response.data;
+      console.log('abcd')
+      console.log('response', response.data)
+      const { token, user} = response.data;
       localStorage.setItem("token", token);
+      localStorage.setItem("user_id", user.user_id);
+      localStorage.setItem("username", user.username);
+      // toast.success(response.data.message, {
+      //   position: toast.POSITION.TOP_CENTER,
+      // });
       window.location.href = "/dashboard";
       console.log("Response from server:", response.data);
     } catch (error) {
@@ -40,6 +49,7 @@ const Login = () => {
 
   return (
     <>
+      <Header />
       <section className="heading">
         <h1>
           <FaSignInAlt /> Login
@@ -73,7 +83,7 @@ const Login = () => {
 
           <div className="form-group">
             <button type="submit" className="btn-login btn-block">
-              Submit
+              Login
             </button>
           </div>
         </form>
