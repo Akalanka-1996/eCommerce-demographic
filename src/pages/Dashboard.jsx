@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [probabilityArray, setProbabilityArray] = useState([]);
   const [pic, setPic] = useState();
   const [selectedImageUrl, setSelectedImageUrl] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const username = localStorage.getItem("username");
 
@@ -50,7 +50,7 @@ const Dashboard = () => {
     data.append("cloud_name", "dinmf92zr");
 
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await fetch(
         "https://api.cloudinary.com/v1_1/dinmf92zr/image/upload",
         {
@@ -61,8 +61,7 @@ const Dashboard = () => {
 
       const cloudinaryData = await response.json();
       setPic(cloudinaryData.url.toString());
-      setLoading(false)
-
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -74,9 +73,11 @@ const Dashboard = () => {
 
   const publishImage = async () => {
     try {
+      const classValues = probabilityArray.map((item) => item.class);
+
       const publishData = {
         image_url: pic,
-        tags: ["gender_male", "isMarried_True", "race_Muslim"],
+        tags: classValues,
       };
       const token = localStorage.getItem("token");
       console.log("publish data", publishData);
@@ -143,8 +144,8 @@ const Dashboard = () => {
                 src={selectedImageUrl}
                 alt="Selected"
                 style={{
-                  maxWidth: "80%",
-                  height: "auto",
+                  maxWidth: "400px",
+                  height: "200px",
                   marginBottom: "10px",
                 }}
               />
@@ -167,43 +168,54 @@ const Dashboard = () => {
           <br />
           <br />
           <div>
-            { loading? ( <div style={{ textAlign: 'center' }}>
-          <Spinner /> {/* Use the Spinner component */}
-          <p>Loading...</p>
-        </div>) : (<div>
-            {probabilityArray.length > 0 && (
+            {loading ? (
+              <div style={{ textAlign: "center" }}>
+                <Spinner />
+                <p>Loading...</p>
+              </div>
+            ) : (
               <div>
-                <button
-                  onClick={uploadToCloudinary}
-                  style={{
-                    padding: "10px 20px",
-                    backgroundColor: "#28a745",
-                    color: "white",
-                    borderRadius: "5px",
-                    border: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  Upload to Cloud
-                </button>
-                <br />
-                <br />
-                <button
-                  onClick={publishImage}
-                  style={{
-                    padding: "10px 20px",
-                    backgroundColor: "#dc3545",
-                    color: "white",
-                    borderRadius: "5px",
-                    border: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  Publish to Website
-                </button>
+                {probabilityArray.length > 0 && (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <button
+                      onClick={uploadToCloudinary}
+                      style={{
+                        padding: "10px 20px",
+                        backgroundColor: "#28a745",
+                        color: "white",
+                        borderRadius: "5px",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Upload to Cloud
+                    </button>
+                    <br />
+                    <br />
+                    <button
+                      onClick={publishImage}
+                      style={{
+                        padding: "10px 20px",
+                        backgroundColor: "#dc3545",
+                        color: "white",
+                        borderRadius: "5px",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Publish to Website
+                    </button>
+                  </div>
+                )}
               </div>
             )}
-            </div>)}
           </div>
         </Form.Group>
       </section>
