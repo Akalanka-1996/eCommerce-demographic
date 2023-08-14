@@ -23,7 +23,13 @@ function Category({ handleChange }) {
           title="Women"
           name="test"
         />
-        <Input
+         <Input
+          handleChange={handleChange}
+          value="ethinc"
+          title="Ethnic"
+          name="test"
+        />
+        {/* <Input
           handleChange={handleChange}
           value="sandals"
           title="Sandals"
@@ -34,7 +40,7 @@ function Category({ handleChange }) {
           value="heels"
           title="Heels"
           name="test"
-        />
+        /> */}
       </div>
     </div>
   );
