@@ -1,0 +1,40 @@
+.App {
+  text-align: center;
+  margin: 20px;
+  margin-left: calc(15% + 100px);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Adjust the gap as needed */
+  align-content: flex-start;
+}
+
+.product {
+  flex: 1;
+  width: calc(25% - 20px);
+  margin: 0 10px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #ccc; /* Add a border around each product */
+  box-sizing: border-box; /* Ensure the border is included in the width calculation */
+}
+
+.product img {
+  width: 150px; /* Adjust the image width to fit the product */
+  height: auto; /* Allow the image height to adjust accordingly */
+  margin-bottom: 10px;
+}
+
+.product p {
+  margin: 0;
+}
