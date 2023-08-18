@@ -23,8 +23,6 @@ const Dashboard = () => {
       if (selectedFile) {
         const formData = new FormData();
         formData.append("image", selectedFile);
-        console.log("form data", formData);
-
         const imageUrl = URL.createObjectURL(selectedFile);
         setSelectedImageUrl(imageUrl);
         const response = await axios.post(`${BASE_URL}/prediction`, formData, {
@@ -32,8 +30,6 @@ const Dashboard = () => {
             "Content-Type": "multipart/form-data",
           },
         });
-        console.log("response", response.data);
-        console.log("probability response", response.data.predictions);
         setProbabilityArray(response.data.predictions);
 
         console.log("probability 12345", probabilityArray);
@@ -87,7 +83,6 @@ const Dashboard = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("response", response.data);
     } catch (error) {
       console.log(error);
     }
